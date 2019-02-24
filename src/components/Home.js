@@ -12,20 +12,46 @@ class Home extends Component {
     this.state = {
       name: "张三",
       color: "red",
-      list: ["列表1", "列表2", "列表3"]
+      list: ["列表1", "列表2", "列表3"],
+      username: ""
     };
 
     // 改变run方法this的指向
-    this.run = this.run.bind(this);
+    // this.run = this.run.bind(this);
+
+    // setTimeout(() => {
+    //   this.setState({
+    //     username: "李四"
+    //   });
+    // }, 4000);
   }
 
   //定义方法
-  run(){
-    console.log('定义方法，', this.state.name);
-  }
-  // run = () => {
+  // run(){
   //   console.log('定义方法，', this.state.name);
   // }
+  run = (msg, e) => {
+    console.log(msg);
+    console.log(e);
+    console.log(e.target);
+    // e.target.style.color = "red";
+    console.log("定义方法，", this.state.name);
+  };
+
+  inputChange = e => {
+    this.setState({
+      // username: e.target.value // 使用事件对象
+      username: this.refs.username.value // 使用ref
+    });
+  };
+
+  getInput = () => {
+    console.log(this.state.username);
+  };
+
+  keyup = () => {
+    console.log("keyup");
+  };
 
   render() {
     // 定义列表
@@ -46,8 +72,8 @@ class Home extends Component {
         {/* style要用{{}}括起来，不能用"" */}
         <div style={{ color: "blue" }}>行内样式</div>
 
-        {/* 引入图片，使用require可行但是会发出警告，引入远程图片直接写 */}
-        <img src={logo} />
+        {/* 引入图片，1.使用import，2.使用require，3.引入远程图片直接写 */}
+        <img src={logo} alt="" />
         {/* <img src={require('../assets/images/1.jpg')} /> */}
         {/* <img src="http://www.mjpai.cn/1.jpg"/> */}
 
@@ -61,8 +87,18 @@ class Home extends Component {
 
         {/* 执行方法，第1种方法：在jsx中使用bind(this)改变run方法this的指向，第2种方法：在constructor中使用bind(this)改变run方法this的指向，第3种方法：使用箭头函数编写方法 */}
         {/* <button onClick={this.run.bind(this)}>执行方法</button> */}
-        <button onClick={this.run}>执行方法</button>
+        <button onClick={this.run.bind(this, "传值")}>执行方法</button>
 
+        <input
+          ref="username"
+          onChange={this.inputChange}
+          value={this.state.username}
+        />
+        <input ref="username" defaultValue={this.state.username} />
+        <p>{this.state.username}</p>
+        <button onClick={this.getInput}>获取input的值</button>
+
+        {/* <input onKeyUp={this.keyup} /> */}
       </div>
     );
   }
