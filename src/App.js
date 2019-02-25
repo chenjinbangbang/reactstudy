@@ -41,25 +41,20 @@ class App extends Component {
       //   {/* <ReactForm /> */}
       //   {/* <Todolist /> */}
 
-      //   {/* 父-子组件传值，方法和整个父组件的实例 */}
-      //   {/* <Header title="父组件的值" run={this.run} news={this} ref="header" />
-      //   <Header run={this.run} />
-      //   <button onClick={this.runChild}>执行子组件的方法</button> */}
-
-      //   {/* <Axios axiosVal={this.state.axiosVal} /> */}
+      //   {/* 父-子组件传值，方法和整个组件 */}
+      //   {/* <Header title="父组件的值" run={this.run} news={this} /> */}
       // </div>
-      <Router>
-        {/* Router里面必须用<div></div>包裹起来，否则报错 */}
+      // <Router>
         <div>
-          <Link to="/">Home</Link>
-          <Link to="/reactform">ReactForm</Link>
-          <Link to="/todolist">Todolist</Link>
+          <Link to="/">Home</Link> 
+          <Link to={`/reactform?title=${this.state.title}`}>ReactForm</Link> 
+          <Link to={`/todolist/${this.state.title}`}>Todolist</Link> 
 
-          <Route exact path="/" component={Home} />
-          <Route path="/reactform" component={ReactForm} />
-          <Route path="/todolist" component={Todolist} />
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/reactform" component={ReactForm}></Route>
+          <Route exact path="/todolist/:id" component={Todolist}></Route>
         </div>
-      </Router>
+      // </Router>
     );
   }
 }
