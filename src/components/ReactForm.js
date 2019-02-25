@@ -73,7 +73,7 @@ class ReactForm extends React.Component {
   render() {
     return (
       <div className="reactform">
-        <h2>表单：</h2>
+        <h2>表单组件</h2>
         <form onSubmit={this.handleSubmit}>
           用户名：
           <input

@@ -62,7 +62,7 @@ class Home extends Component {
       <div className="home">
         {/* 属性使用{}括起来，className替换掉class，onClick执行方法 */}
         <h2 title={this.state.name} className={this.state.color}>
-          react组件 {this.state.name}
+          Home组件 {this.state.name}
         </h2>
 
         {/* htmlFor替换掉for */}
