@@ -25,6 +25,11 @@ class Todolist extends Component {
     };
   }
 
+  componentDidMount(){
+    // 获取动态路由的传值
+    console.log(this.props.match.params.id);
+  }
+
   addData = e => {
     if (e.keyCode === 13) {
       let title = this.refs.title.value;

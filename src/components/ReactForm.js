@@ -1,4 +1,6 @@
 import React from "react";
+import url from 'url';
+import { Redirect } from 'react-router-dom';
 
 class ReactForm extends React.Component {
   constructor(props) {
@@ -22,8 +24,15 @@ class ReactForm extends React.Component {
           checked: true
         }
       ],
-      info: ""
+      info: "",
+      loginFlag: false
     };
+  }
+
+  componentDidMount(){
+    // 获取get传值
+    console.log(this.props.location.search);
+    console.log(url.parse(this.props.location.search, true));
   }
 
   handleName = e => {
@@ -69,8 +78,19 @@ class ReactForm extends React.Component {
       this.state.info
     );
   };
+  
+  toHome = () => {
+    // return <Redirect to={{pathname: "/"}} />;
+    this.setState({
+      loginFlag: true
+    });
+  }
 
   render() {
+    if(this.state.loginFlag){
+      // js跳转路由
+      return <Redirect to={{pathname: "/"}} />;
+    }
     return (
       <div className="reactform">
         <h2>表单：</h2>
@@ -125,6 +145,8 @@ class ReactForm extends React.Component {
           <br />
           <input type="submit" defaultValue="提交" />
         </form>
+
+        <button onClick={this.toHome}>跳转到home页面</button>
       </div>
     );
   }
