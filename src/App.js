@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import logo from './assets/images/logo.svg';
 import "./assets/css/App.css";
 
+import { Button } from 'antd';
+
 // 引入组件
 // import Header from "./components/Header";
 // import Axios from "./components/Axios";
@@ -62,80 +64,18 @@ class App extends Component {
       //   {/* 父-子组件传值，方法和整个组件 */}
       //   {/* <Header title="父组件的值" run={this.run} news={this} /> */}
       // </div>
-
       <Router>
-        <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-          >
-            <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span>
-                  <Link to="/">Home</Link>
-                </span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span>
-                  <Link to={`/reactform?title=${this.state.title}`}>
-                    ReactForm
-                  </Link>
-                </span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span>
-                  <Link to={`/todolist/${this.state.title}`}>Todolist</Link>
-                </span>
-              </Menu.Item>
-            </Menu>
-          </Sider>
-          <Layout>
-            <Header style={{ background: "#fff", padding: 0 }}>
-              <Icon
-                className="trigger"
-                type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-                onClick={this.toggle}
-              />
-            </Header>
-            <Content
-              style={{
-                margin: "24px 16px",
-                padding: 24,
-                background: "#fff",
-                minHeight: 280
-              }}
-            >
-              {routes ? routes.map((route, key) => {
-                return (
-                  <Route
-                    key={key}
-                    exact
-                    path={route.path}
-                    component={route.component}
-                  />
-                );
-              }) : ""}
-            </Content>
-          </Layout>
-        </Layout>
+        <div>
+          <Button type="primary">primary</Button>
+          <Link to="/">Home</Link> 
+          <Link to={`/reactform?title=${this.state.title}`}>ReactForm</Link> 
+          <Link to={`/todolist/${this.state.title}`}>Todolist</Link> 
+
+          <Route exact path="/" component={Home}></Route>
+          <Route exact path="/reactform" component={ReactForm}></Route>
+          <Route exact path="/todolist/:id" component={Todolist}></Route>
+        </div>
       </Router>
-
-      // <Router>
-      //   <div>
-      //     {/* <Link to="/">Home</Link>
-      //     <Link to={`/reactform?title=${this.state.title}`}>ReactForm</Link>
-      //     <Link to={`/todolist/${this.state.title}`}>Todolist</Link> */}
-
-      //     {/* <Route exact path="/" component={Home} />
-      //     <Route path="/reactform" component={ReactForm} />
-      //     <Route path="/todolist/:id" component={Todolist} /> */}
-      //   </div>
-      // </Router>
     );
   }
 }
