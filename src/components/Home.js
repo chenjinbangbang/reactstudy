@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 
 import logo from "../assets/images/1.jpg";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import Info from "./Home/Info";
+// import Main from "./Home/Main";
+
+import { Button } from "antd";
 
 class Home extends Component {
   // 构造函数，若里面为空则注释掉，否则报错
@@ -26,14 +31,18 @@ class Home extends Component {
     // }, 4000);
   }
 
+  componentWillMount() {
+    // console.log(this.props);
+  }
+
   //定义方法
   // run(){
   //   console.log('定义方法，', this.state.name);
   // }
   run = (msg, e) => {
-    console.log(msg);
-    console.log(e);
-    console.log(e.target);
+    // console.log(msg);
+    // console.log(e);
+    // console.log(e.target);
     // e.target.style.color = "red";
     console.log("定义方法，", this.state.name);
   };
@@ -59,47 +68,72 @@ class Home extends Component {
       return <li key={key}>{item}</li>;
     });
     return (
-      <div className="home">
-        {/* 属性使用{}括起来，className替换掉class，onClick执行方法 */}
-        <h2 title={this.state.name} className={this.state.color}>
-          Home组件 {this.state.name}
-        </h2>
+      <Router>
+        <div className="home">
+          <Button type="primary">按钮</Button>
 
-        {/* htmlFor替换掉for */}
-        <label htmlFor="name">姓名</label>
-        <input id="name" />
+          {/* 属性使用{}括起来，className替换掉class，onClick执行方法 */}
+          <h2 title={this.state.name} className={this.state.color}>
+            Home组件 {this.state.name}
+          </h2>
 
-        {/* style要用{{}}括起来，不能用"" */}
-        <div style={{ color: "blue" }}>行内样式</div>
+          {/* htmlFor替换掉for */}
+          <label htmlFor="name">姓名</label>
+          <input id="name" />
 
-        {/* 引入图片，1.使用import，2.使用require，3.引入远程图片直接写 */}
-        <img src={logo} alt="" />
-        {/* <img src={require('../assets/images/1.jpg')} /> */}
-        {/* <img src="http://www.mjpai.cn/1.jpg"/> */}
+          {/* style要用{{}}括起来，不能用"" */}
+          <div style={{ color: "blue" }}>行内样式</div>
 
-        {/* 定义列表 */}
-        <ul>{list}</ul>
-        <ul>
-          {this.state.list.map((item, key) => {
-            return <li key={key}>{item}</li>;
-          })}
-        </ul>
+          {/* 引入图片，1.使用import，2.使用require，3.引入远程图片直接写 */}
+          <img src={logo} alt="" />
+          {/* <img src={require('../assets/images/1.jpg')} /> */}
+          {/* <img src="http://www.mjpai.cn/1.jpg"/> */}
 
-        {/* 执行方法，第1种方法：在jsx中使用bind(this)改变run方法this的指向，第2种方法：在constructor中使用bind(this)改变run方法this的指向，第3种方法：使用箭头函数编写方法 */}
-        {/* <button onClick={this.run.bind(this)}>执行方法</button> */}
-        <button onClick={this.run.bind(this, "传值")}>执行方法</button>
+          {/* 定义列表 */}
+          <ul>{list}</ul>
+          <ul>
+            {this.state.list.map((item, key) => {
+              return <li key={key}>{item}</li>;
+            })}
+          </ul>
 
-        <input
-          ref="username"
-          onChange={this.inputChange}
-          value={this.state.username}
-        />
-        <input ref="username" defaultValue={this.state.username} />
-        <p>{this.state.username}</p>
-        <button onClick={this.getInput}>获取input的值</button>
+          {/* 执行方法，第1种方法：在jsx中使用bind(this)改变run方法this的指向，第2种方法：在constructor中使用bind(this)改变run方法this的指向，第3种方法：使用箭头函数编写方法 */}
+          {/* <button onClick={this.run.bind(this)}>执行方法</button> */}
+          <button onClick={this.run.bind(this, "传值")}>执行方法</button>
 
-        {/* <input onKeyUp={this.keyup} /> */}
-      </div>
+          <input
+            ref="username"
+            onChange={this.inputChange}
+            value={this.state.username}
+          />
+          <input ref="username" defaultValue={this.state.username} />
+          <p>{this.state.username}</p>
+          <button onClick={this.getInput}>获取input的值</button>
+
+          {/* <input onKeyUp={this.keyup} /> */}
+
+          <div>
+            <Link to="/">用户信息</Link>
+            <Link to="/main">个人中心</Link>
+
+            {this.props.routes.map((route, key) => {
+              return (
+                <Route
+                  key={key}
+                  exact
+                  path={route.path}
+                  component={route.component}
+                />
+              );
+            })}
+
+            {/* <Route exact path="/" component={Info} />
+            <Route path="/main" component={Main} /> */}
+            {/* <Route exact path={`${this.props.match.url}/`} component={Info} />
+            <Route path={`${this.props.match.url}/main`} component={Main} /> */}
+          </div>
+        </div>
+      </Router>
     );
   }
 }
